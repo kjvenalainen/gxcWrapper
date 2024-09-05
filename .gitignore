@@ -1,3 +1,4 @@
 build/*
 cdb/*
 compile_commands.json
+sample.xcodeproj/*

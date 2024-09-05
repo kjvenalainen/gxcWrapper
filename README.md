@@ -13,10 +13,27 @@ The python script is needed to:
 
 `python3` must be invokable from your path.
 
+By default, the script will output compilation fragments to `cdb` in the current directory, and output final `compile-commands.json` also to the current directory.
+Modifying `GXC_SCRIPT_DIR`, `FRAGMENT_DIR`, and `OUTPUT_FILE` at the top of `gxcWrapper.sh` controls this behavior.
+
 # Usage
 
 Invoke the `gxcWrapper.sh` script in front of your normal `xcodebuild` command.
 
 ``` bash
-./gxcWrapper.sh xcodebuild -workspace MyWorkspace.xcworkspace -scheme MyScheme build
+./gxcWrapper.sh xcodebuild -project sample.xcodeproj -configuration Debug -scheme sample -derivedDataPath build
+```
+
+If you are using VSCode, you may want to modify your `tasks.json` to invoke this script. For example:
+
+``` json
+{
+  "label": "Build (Debug)",
+  "type": "shell",
+  "command": "./gxcWrapper.sh xcodebuild -project sample.xcodeproj -configuration Debug -scheme sample -derivedDataPath build",
+  "problemMatcher": ["$gcc"],
+  "group": {
+    "kind": "build"
+  }
+}
 ```
